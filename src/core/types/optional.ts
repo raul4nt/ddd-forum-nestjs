@@ -15,11 +15,10 @@
  **/
 
 // Definição do tipo genérico Optional
-export type Optional<T, K extends keyof T> = 
+export type Optional<T, K extends keyof T> =
   // 1. Pick<Partial<T>, K>: Primeiro, torna as propriedades de T (definidas em K) opcionais
   // Isso significa que para 'id' e 'email', vamos ter tipos opcionais
-  Pick<Partial<T>, K> 
-  
-  // 2. Omit<T, K>: Depois, usamos Omit para pegar todas as propriedades de T
-  // EXCETO aquelas que estão em K ('id' e 'email', neste caso)
-  & Omit<T, K> 
+  Pick<Partial<T>, K> &
+    // 2. Omit<T, K>: Depois, usamos Omit para pegar todas as propriedades de T
+    // EXCETO aquelas que estão em K ('id' e 'email', neste caso)
+    Omit<T, K>

@@ -1,0 +1,26 @@
+{
+    // "extends" permite estender as configurações de outros pacotes de ESLint,
+    // ou configurações compartilhadas. Estamos incluindo duas configurações padrão.
+    "extends": [
+        // "@rocketseat/eslint-config/node" traz um conjunto de regras para Node.js
+        // da Rocketseat, que é uma configuração recomendada para projetos Node.
+        "@rocketseat/eslint-config/node",
+
+        // "plugin:vitest-globals/recommended" ativa as regras globais recomendadas
+        // para o Vitest, o que facilita a utilização das funções globais do Vitest sem
+        // a necessidade de importá-las explicitamente em cada arquivo de teste.
+        "plugin:vitest-globals/recommended"
+    ],
+    "rules": {
+        "no-useless-constructor": "off"
+    },
+
+    // "env" é onde você configura os ambientes de execução para o ESLint. Ele permite
+    // que o ESLint reconheça quais variáveis globais estão disponíveis no seu código.
+    "env": {
+        // "vitest-globals/env" ativa as variáveis globais do Vitest, permitindo
+        // que você use funções globais do Vitest, como `describe`, `it`, `expect` 
+        // diretamente no código de testes sem a necessidade de importações.
+        "vitest-globals/env": true
+    }
+}
