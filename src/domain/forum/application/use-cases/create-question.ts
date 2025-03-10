@@ -3,6 +3,7 @@ import { Question } from '../../enterprise/entities/question'
 import { QuestionsRepository } from '../repositories/questions-repository'
 import { Either, right } from '@/core/either'
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment'
+import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list'
 
 interface CreateQuestionUseCaseRequest {
   authorId: string
@@ -41,7 +42,7 @@ export class CreateQuestionUseCase {
       })
     })
 
-    question.attachments = questionAttachments
+    question.attachments = new QuestionAttachmentList(questionAttachments)
     // setando os attachments da question com os questionAttachments que criamos usando o map
     // pra isso estamos usando um metodo SET, pora podermos setar isso mesmo DEPOIS da question
     // ja ter sido criada(la em cima na const question = Question.create)
