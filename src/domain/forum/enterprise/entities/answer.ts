@@ -1,11 +1,13 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { AnswerAttachmentList } from './answer-attachment-list'
 
 export interface AnswerProps {
   authorId: UniqueEntityID
   questionId: UniqueEntityID
   content: string
+  attachments: AnswerAttachmentList
   createdAt: Date
   updatedAt?: Date
 }
@@ -23,6 +25,10 @@ export class Answer extends Entity<AnswerProps> {
 
   get questionId() {
     return this.props.questionId
+  }
+
+  get attachments() {
+    return this.props.attachments
   }
 
   get createdAt() {
@@ -46,15 +52,20 @@ export class Answer extends Entity<AnswerProps> {
     // método que chamamos quando vamos setar(atualizar) algo
   }
 
-  set content(content: string) {
-    this.props.content = content
+  set attachments(attachments: AnswerAttachmentList) {
+    this.props.attachments = attachments
     this.touch()
     // usando o touch pra alterar o updatedAt
   }
 
+  set content(content: string) {
+    this.props.content = content
+    this.touch()
+  }
+
   static create(
     // funçao estatica padrao pra toda entidade(criar ela)
-    props: Optional<AnswerProps, 'createdAt'>,
+    props: Optional<AnswerProps, 'createdAt' | 'attachments'>,
     // usamos esse Optional(definido na pasta
     // types para pegar as props e definir alguma como opcional)
     // neste caso, nao é que createdAt realmente seja opcional,
@@ -66,6 +77,7 @@ export class Answer extends Entity<AnswerProps> {
     const answer = new Answer(
       {
         ...props,
+        attachments: props.attachments ?? new AnswerAttachmentList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,
