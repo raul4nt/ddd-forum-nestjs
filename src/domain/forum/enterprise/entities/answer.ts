@@ -1,7 +1,8 @@
-import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 import { AnswerAttachmentList } from './answer-attachment-list'
+import { AggregateRoot } from '@/core/entities/aggregate-root'
+import { AnswerCreatedEvent } from '../events/answer-created-event'
 
 export interface AnswerProps {
   authorId: UniqueEntityID
@@ -12,7 +13,7 @@ export interface AnswerProps {
   updatedAt?: Date
 }
 
-export class Answer extends Entity<AnswerProps> {
+export class Answer extends AggregateRoot<AnswerProps> {
   get content() {
     return this.props.content
     // método get pra acessar a prop content(que agora fica dentro da propriedade
@@ -82,6 +83,15 @@ export class Answer extends Entity<AnswerProps> {
       },
       id,
     )
+
+    const isNewAnswer = !id
+    // deixa o if mais semantico
+
+    if (isNewAnswer) {
+      answer.addDomainEvent(new AnswerCreatedEvent(answer))
+      // se a resposta for nova(ou seja, nao tiver já um id existente) eu uso o addDomainEvent criando
+      // um evento pra essa resposta(registrando, nao estou disparando nada, o banco que vai disparar esse evento depois)
+    }
 
     return answer
   }
