@@ -20,5 +20,7 @@ export class UniqueEntityID {
 
   equals(id: UniqueEntityID) {
     return id.toValue() === this.value
+    // função pra comparar se dois UniqueEntityIds são iguais
+    // (retorna um boolean fruto desta comparação)
   }
 }

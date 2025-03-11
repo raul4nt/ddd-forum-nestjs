@@ -23,15 +23,19 @@ export abstract class Entity<Props> {
     // se nao houver
   }
 
+  // método pra verificar se duas entidades são iguais
   public equals(entity: Entity<any>) {
     if (entity === this) {
       return true
+      // se a entidade for igual a do parametro é true
     }
 
     if (entity.id === this._id) {
       return true
+      // se o id for igual tb
     }
 
     return false
+    // se nenhum dos dois for verdade, é false
   }
 }
