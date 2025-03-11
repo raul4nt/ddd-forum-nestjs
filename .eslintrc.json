@@ -12,7 +12,8 @@
         "plugin:vitest-globals/recommended"
     ],
     "rules": {
-        "no-useless-constructor": "off"
+        "no-useless-constructor": "off",
+        "no-new": "off"
     },
 
     // "env" é onde você configura os ambientes de execução para o ESLint. Ele permite
