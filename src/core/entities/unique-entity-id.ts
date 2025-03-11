@@ -17,4 +17,8 @@ export class UniqueEntityID {
   // classe pra geraçao do ID randomico
   // nao explicarei muito pois é bem simplao, é util por
   //  ser reutilizavel mesmo
+
+  equals(id: UniqueEntityID) {
+    return id.toValue() === this.value
+  }
 }

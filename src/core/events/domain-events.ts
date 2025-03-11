@@ -5,7 +5,9 @@ import { DomainEvent } from './domain-event'
 type DomainEventCallback = (event: any) => void
 
 export class DomainEvents {
+  // seriam os subscribers
   private static handlersMap: Record<string, DomainEventCallback[]> = {}
+  // seriam os eventos pendentes que ainda nao estao prontos(nao estao dispatcheds)
   private static markedAggregates: AggregateRoot<any>[] = []
 
   // marca um agregado para futura notificação de eventos

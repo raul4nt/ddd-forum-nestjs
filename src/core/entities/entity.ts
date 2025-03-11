@@ -22,4 +22,16 @@ export abstract class Entity<Props> {
     // e tambem gera o id usando a classe UniqueEntityID(objeto)
     // se nao houver
   }
+
+  public equals(entity: Entity<any>) {
+    if (entity === this) {
+      return true
+    }
+
+    if (entity.id === this._id) {
+      return true
+    }
+
+    return false
+  }
 }
