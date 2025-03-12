@@ -5,6 +5,7 @@ import { Optional } from '@/core/types/optional'
 import dayjs from 'dayjs'
 
 import { QuestionAttachmentList } from './question-attachment-list'
+import { QuestionBestAnswerChosenEvent } from '../events/question-best-answer-chosen-event'
 
 export interface QuestionProps {
   authorId: UniqueEntityID
@@ -82,6 +83,21 @@ export class Question extends AggregateRoot<QuestionProps> {
   }
 
   set bestAnswerId(bestAnswerId: UniqueEntityID | undefined) {
+    if (bestAnswerId === undefined) {
+      return
+    }
+
+    if (
+      this.props.bestAnswerId === undefined ||
+      !this.props.bestAnswerId.equals(bestAnswerId)
+    ) {
+      this.addDomainEvent(new QuestionBestAnswerChosenEvent(this, bestAnswerId))
+    }
+
+    // se já houver uma bestAnswerId definida e ela for diferente da nova,
+    // disparamos um evento de domínio indicando que a melhor resposta foi alterada.
+    // Isso garante que apenas mudanças reais gerem eventos.
+
     this.props.bestAnswerId = bestAnswerId
     this.touch()
   }

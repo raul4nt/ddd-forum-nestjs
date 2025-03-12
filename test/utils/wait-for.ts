@@ -27,5 +27,7 @@ export async function waitFor(
         }
       }
     }, 10)
+    // essa funçao resumindo bastante é uma funçao pra esperar que uma coisa seja concluida por ate 1 segundo, caso nao for por ate 1 segundo,
+    // da erro. isso serve pra nos orientar na parte de evento de dominio, pois as vezes o evento tem um delay pra ser criado e o teste/use-case falha por isso
   })
 }
